@@ -44,4 +44,9 @@ class ProductRepositoriesImpl implements ProductRepositories {
             product.name.toLowerCase().contains(name.toLowerCase()))
         .toList();
   }
+
+  @override
+  Future<void> addToCart(ProductEntity product) async {
+    await _productDataSource.addProductToCart(product);
+  }
 }

@@ -12,4 +12,6 @@ abstract class ProductRepositories {
       String category);
 
   Future<void> likeProduct(ProductEntity product);
+
+  Future<void> addToCart(ProductEntity product);
 }

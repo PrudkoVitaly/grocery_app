@@ -5,6 +5,9 @@ class ProductEntity {
   final String name;
   final String amount;
   final String category;
+  final double? discount;
+  final bool isNew;
+  final bool isOnSale;
 
   ProductEntity({
     required this.image,
@@ -13,5 +16,8 @@ class ProductEntity {
     required this.amount,
     required this.category,
     this.isLike = false,
+    this.isNew = false,
+    this.isOnSale = false,
+    this.discount,
   });
 }

@@ -7,5 +7,9 @@ class ProductModel extends ProductEntity {
     required super.name,
     required super.amount,
     required super.category,
+    super.isLike = false,
+    required super.isNew,
+    required super.isOnSale,
+    super.discount,
   });
 }

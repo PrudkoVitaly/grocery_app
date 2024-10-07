@@ -1,7 +1,12 @@
 import 'package:flutter_with_bay/lesson_13/data/models/product_model.dart';
+import 'package:flutter_with_bay/lesson_13/domain/entities/product_entity.dart';
 
 abstract class ProductDataSource {
   Future<List<ProductModel>> getProductFromDB();
+
+  Future<void> addProductToCart(ProductEntity product);
+
+  Future<List<ProductEntity>> getCartProducts();
 }
 
 class ProductLocalDateSource implements ProductDataSource {
@@ -9,33 +14,73 @@ class ProductLocalDateSource implements ProductDataSource {
   Future<List<ProductModel>> getProductFromDB() async {
     return [
       ProductModel(
-        image: "image",
+        image: "assets/peach.png",
         price: 8,
         name: "Fresh Peach",
         amount: "dozen",
-        category: "Vegetables",
+        category: "Fruits",
+        isNew: false,
+        isOnSale: false,
       ),
       ProductModel(
-        image: "image",
+        image: "assets/avocado.png",
         price: 7,
-        name: "Avacoda",
+        name: "Avocado",
         amount: "2",
         category: "Fruits",
+        isNew: true,
+        isOnSale: false,
       ),
       ProductModel(
-        image: "image",
+        image: "assets/pineapple.png",
         price: 9.90,
         name: "Pineapple",
         amount: "1.50",
         category: "Fruits",
+        isNew: false,
+        isOnSale: false,
       ),
       ProductModel(
-        image: "image",
+        image: "assets/grapes.png",
+        price: 7.05,
+        name: "Black Grapes",
+        amount: "5.00",
+        category: "Fruits",
+        isNew: false,
+        isOnSale: true,
+        discount: -16,
+      ),
+      ProductModel(
+        image: "assets/pomegranate.png",
+        price: 2.09,
+        name: "Pomegranate",
+        amount: "1.50",
+        category: "Fruits",
+        isNew: true,
+        isOnSale: false,
+      ),
+      ProductModel(
+        image: "assets/broccoli.png",
         price: 3.00,
-        name: "Fresh Broccoli",
-        amount: "1",
+        name: "Pomegranate",
+        amount: "1.00",
         category: "Vegetables",
+        isNew: false,
+        isOnSale: false,
       ),
     ];
+  }
+
+  final List<ProductEntity> _cartProducts = [];
+
+  @override
+  Future<void> addProductToCart(ProductEntity product) async {
+    _cartProducts.add(product);
+    print("${_cartProducts}");
+  }
+
+  @override
+  Future<List<ProductEntity>> getCartProducts() async {
+    return _cartProducts;
   }
 }
