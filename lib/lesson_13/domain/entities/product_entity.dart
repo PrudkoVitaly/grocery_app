@@ -8,6 +8,7 @@ class ProductEntity {
   final double? discount;
   final bool isNew;
   final bool isOnSale;
+  int quantity;
 
   ProductEntity({
     required this.image,
@@ -19,5 +20,6 @@ class ProductEntity {
     this.isNew = false,
     this.isOnSale = false,
     this.discount,
+    this.quantity = 1,
   });
 }

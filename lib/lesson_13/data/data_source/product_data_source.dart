@@ -4,9 +4,6 @@ import 'package:flutter_with_bay/lesson_13/domain/entities/product_entity.dart';
 abstract class ProductDataSource {
   Future<List<ProductModel>> getProductFromDB();
 
-  Future<void> addProductToCart(ProductEntity product);
-
-  Future<List<ProductEntity>> getCartProducts();
 }
 
 class ProductLocalDateSource implements ProductDataSource {
@@ -70,17 +67,6 @@ class ProductLocalDateSource implements ProductDataSource {
       ),
     ];
   }
-
-  final List<ProductEntity> _cartProducts = [];
-
-  @override
-  Future<void> addProductToCart(ProductEntity product) async {
-    _cartProducts.add(product);
-    print("${_cartProducts}");
-  }
-
-  @override
-  Future<List<ProductEntity>> getCartProducts() async {
-    return _cartProducts;
-  }
 }
+
+List<ProductEntity> cartProducts = [];

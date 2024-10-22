@@ -47,6 +47,20 @@ class ProductRepositoriesImpl implements ProductRepositories {
 
   @override
   Future<void> addToCart(ProductEntity product) async {
-    await _productDataSource.addProductToCart(product);
+    ProductEntity? existProduct;
+    for(var item in cartProducts){
+      if(item.name == product.name){
+        existProduct = item;
+        break;
+      }
+    }
+      if(existProduct != null) {
+        existProduct.quantity++;
+      } else {
+        cartProducts.add(product);
+      }
+
   }
+
+
 }

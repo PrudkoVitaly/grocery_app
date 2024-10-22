@@ -3,12 +3,30 @@ import 'package:flutter_with_bay/lesson_13/domain/entities/product_entity.dart';
 import 'package:flutter_with_bay/lesson_13/domain/repositories/cart_repositories.dart';
 
 class CartRepositoriesImpl implements CartRepositories {
-  final ProductLocalDateSource _productLocalDateSource;
 
-  CartRepositoriesImpl(this._productLocalDateSource);
 
   @override
   Future<List<ProductEntity>> getCartProducts() async {
-    return await _productLocalDateSource.getCartProducts();
+    return cartProducts;
+  }
+
+  @override
+  Future<void> increaseQuantity(ProductEntity product) async {
+    for(var item in cartProducts){
+      if(item.name == product.name){
+        item.quantity++;
+        break;
+      }
+    }
+  }
+
+  @override
+  Future<void> decreaseQuantity(ProductEntity product) async {
+    for(var item in cartProducts){
+      if(item.name == product.name){
+        item.quantity--;
+        break;
+      }
+    }
   }
 }

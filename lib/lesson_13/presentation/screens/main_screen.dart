@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_with_bay/lesson_13/data/data_source/product_data_source.dart';
 import 'package:flutter_with_bay/lesson_13/data/repositories/product_repositories_impl.dart';
 import 'package:flutter_with_bay/lesson_13/domain/entities/product_entity.dart';
@@ -204,49 +203,27 @@ class _MainScreenState extends State<MainScreen> {
                       );
                     }).toList(),
                   )),
-
               Expanded(
-                child: GridView.builder(
-                  gridDelegate:
-                      SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 16,
-                    crossAxisSpacing: 16,
-                    childAspectRatio: 0.7,
-                  ),
+                child: ListView.builder(
                   itemCount: filterProducts.length,
                   itemBuilder: (context, index) {
                     final product = filterProducts[index];
-                    return Container(
-                      width: 181,
-                      height: 234,
-                      decoration: BoxDecoration(color: Colors.blue),
-                      child: Text(product.name),
+                    return ListTile(
+                      title: Text(product.name),
+                      subtitle: Text(product.price.toString()),
+                      trailing: IconButton(
+                        onPressed: () {
+                          like(product);
+                        },
+                        icon: product.isLike
+                            ? const Icon(Icons.favorite,
+                                color: Colors.red)
+                            : const Icon(Icons.favorite_border),
+                      ),
                     );
                   },
                 ),
               ),
-              // Expanded(
-              //   child: ListView.builder(
-              //     itemCount: filterProducts.length,
-              //     itemBuilder: (context, index) {
-              //       final product = filterProducts[index];
-              //       return ListTile(
-              //         title: Text(product.name),
-              //         subtitle: Text(product.price.toString()),
-              //         trailing: IconButton(
-              //           onPressed: () {
-              //             like(product);
-              //           },
-              //           icon: product.isLike
-              //               ? const Icon(Icons.favorite,
-              //                   color: Colors.red)
-              //               : const Icon(Icons.favorite_border),
-              //         ),
-              //       );
-              //     },
-              //   ),
-              // ),
             ],
           ),
         ),

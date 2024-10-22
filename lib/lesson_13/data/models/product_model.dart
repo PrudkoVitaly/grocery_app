@@ -11,5 +11,6 @@ class ProductModel extends ProductEntity {
     required super.isNew,
     required super.isOnSale,
     super.discount,
+    super.quantity = 1,
   });
 }

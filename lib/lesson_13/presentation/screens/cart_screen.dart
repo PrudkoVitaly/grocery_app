@@ -5,6 +5,10 @@ import 'package:flutter_with_bay/lesson_13/data/repositories/product_repositorie
 import 'package:flutter_with_bay/lesson_13/domain/entities/product_entity.dart';
 import 'package:flutter_with_bay/lesson_13/domain/useCase/get_cart_use_case.dart';
 
+import '../../domain/useCase/cart_use_case/decrease_quantity_use_case.dart';
+import '../../domain/useCase/cart_use_case/get_cart_use_case.dart';
+import '../../domain/useCase/cart_use_case/increment_quantity_use_case.dart';
+
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
 
@@ -13,18 +17,20 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
+  List<ProductEntity> _cartProducts = [];
+
   late final GetCartUseCase _getCartUseCase;
+  late final IncreaseQuantityUseCase _increaseQuantityUseCase;
+  late final DecreaseQuantityUseCase _decreaseQuantityUseCase;
 
   @override
   void initState() {
-    _getCartUseCase = GetCartUseCase(
-        CartRepositoriesImpl(ProductLocalDateSource()));
+    _getCartUseCase = GetCartUseCase(CartRepositoriesImpl());
     getCartProducts();
-    // TODO: implement initState
+    _increaseQuantityUseCase = IncreaseQuantityUseCase(CartRepositoriesImpl());
+    _decreaseQuantityUseCase = DecreaseQuantityUseCase(CartRepositoriesImpl());
     super.initState();
   }
-
-  List<ProductEntity> _cartProducts = [];
 
   Future<void> getCartProducts() async {
     final cartProducts = await _getCartUseCase.call();
@@ -33,9 +39,24 @@ class _CartScreenState extends State<CartScreen> {
     });
   }
 
+  void increaseQuantity(ProductEntity product) async {
+    await _increaseQuantityUseCase(product);
+    setState(() {});
+  }
+
+  void decreaseQuantity(ProductEntity product) async {
+    await _decreaseQuantityUseCase(product);
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("Shopping Cart"),
+        centerTitle: true,
+        backgroundColor: Colors.white,
+      ),
       body: SafeArea(
         child: Column(
           children: [
@@ -43,7 +64,34 @@ class _CartScreenState extends State<CartScreen> {
               child: ListView.builder(
                 itemCount: _cartProducts.length,
                 itemBuilder: (context, index) {
-                  return Text(_cartProducts[index].name);
+                  return ListTile(
+                    title: Text(_cartProducts[index].name),
+                    subtitle: Text(
+                        "${_cartProducts[index].price * _cartProducts[index].quantity}"),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            decreaseQuantity(_cartProducts[index]);
+                          },
+                          icon: const Icon(
+                            Icons.remove,
+                          ),
+                        ),
+                        Text("${_cartProducts[index].quantity}"),
+                        IconButton(
+                          onPressed: () {
+                            increaseQuantity(_cartProducts[index]);
+
+                          },
+                          icon: const Icon(
+                            Icons.add,
+                          ),
+                        )
+                      ],
+                    ),
+                  );
                 },
               ),
             ),
