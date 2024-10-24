@@ -61,38 +61,41 @@ class _CartScreenState extends State<CartScreen> {
         child: Column(
           children: [
             Expanded(
-              child: ListView.builder(
-                itemCount: _cartProducts.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text(_cartProducts[index].name),
-                    subtitle: Text(
-                        "${_cartProducts[index].price * _cartProducts[index].quantity}"),
-                    trailing: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        IconButton(
-                          onPressed: () {
-                            decreaseQuantity(_cartProducts[index]);
-                          },
-                          icon: const Icon(
-                            Icons.remove,
+              child: SizedBox(
+                height: 100,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: _cartProducts.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      title: Text(_cartProducts[index].name),
+                      subtitle: Text(
+                          "${_cartProducts[index].price * _cartProducts[index].quantity}"),
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          IconButton(
+                            onPressed: () {
+                              decreaseQuantity(_cartProducts[index]);
+                            },
+                            icon: const Icon(
+                              Icons.remove,
+                            ),
                           ),
-                        ),
-                        Text("${_cartProducts[index].quantity}"),
-                        IconButton(
-                          onPressed: () {
-                            increaseQuantity(_cartProducts[index]);
-
-                          },
-                          icon: const Icon(
-                            Icons.add,
-                          ),
-                        )
-                      ],
-                    ),
-                  );
-                },
+                          Text("${_cartProducts[index].quantity}"),
+                          IconButton(
+                            onPressed: () {
+                              increaseQuantity(_cartProducts[index]);
+                            },
+                            icon: const Icon(
+                              Icons.add,
+                            ),
+                          )
+                        ],
+                      ),
+                    );
+                  },
+                ),
               ),
             ),
           ],

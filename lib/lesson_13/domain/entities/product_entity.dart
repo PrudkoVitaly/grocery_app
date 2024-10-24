@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 class ProductEntity {
   bool isLike;
   final String image;
@@ -8,10 +10,12 @@ class ProductEntity {
   final double? discount;
   final bool isNew;
   final bool isOnSale;
+  final Color color;
   int quantity;
 
   ProductEntity({
     required this.image,
+    required this.color,
     required this.price,
     required this.name,
     required this.amount,
