@@ -29,4 +29,15 @@ class CartRepositoriesImpl implements CartRepositories {
       }
     }
   }
+
+  @override
+  Future<void> removeProduct(ProductEntity product) async {
+    for(var item in cartProducts){
+      if(item.name == product.name){
+        item.quantity = 1;
+        cartProducts.remove(item);
+        break;
+      }
+    }
+  }
 }

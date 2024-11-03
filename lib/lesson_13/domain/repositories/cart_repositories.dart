@@ -6,4 +6,6 @@ abstract class CartRepositories {
   Future<void> increaseQuantity(ProductEntity product);
 
   Future<void> decreaseQuantity(ProductEntity product);
+
+  Future<void> removeProduct(ProductEntity product);
 }

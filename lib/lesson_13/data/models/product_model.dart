@@ -13,5 +13,7 @@ class ProductModel extends ProductEntity {
     super.discount,
     super.quantity = 1,
     required super.color,
+    required super.description,
+    required super.reviews,
   });
 }

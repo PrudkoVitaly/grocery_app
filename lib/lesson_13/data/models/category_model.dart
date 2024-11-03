@@ -6,6 +6,7 @@ class CategoryModel extends CategoryEntity {
   CategoryModel({
     required super.name,
      required super.icon,
+    required super.color,
   });
 }
 

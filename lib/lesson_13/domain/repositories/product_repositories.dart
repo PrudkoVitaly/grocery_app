@@ -14,4 +14,10 @@ abstract class ProductRepositories {
   Future<void> likeProduct(ProductEntity product);
 
   Future<void> addToCart(ProductEntity product);
+
+  Future<void> increaseQuantity(ProductEntity product);
+
+  Future<void> decreaseQuantity(ProductEntity product);
+
+  Future<ProductEntity> getCurrentProduct(ProductEntity product);
 }

@@ -59,8 +59,25 @@ class ProductRepositoriesImpl implements ProductRepositories {
       } else {
         cartProducts.add(product);
       }
-
   }
 
+  @override
+  Future<void> decreaseQuantity(ProductEntity product) {
+    // TODO: implement decreaseQuantity
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> increaseQuantity(ProductEntity product) async {
+      final listProduct = await _productDataSource.getProductFromDB();
+      final item = listProduct.firstWhere((item) => item.name == product.name);
+      item.quantity++;
+  }
+
+  @override
+  Future<ProductEntity> getCurrentProduct(ProductEntity product) async {
+    final listProduct = await _productDataSource.getProductFromDB();
+    return listProduct.firstWhere((item) => item.name == product.name);
+  }
 
 }
